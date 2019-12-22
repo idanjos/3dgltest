@@ -54,11 +54,7 @@ public class Window {
         //System.out.println("Frames:"+(frames-1)); //-1 due to calling window.update before checking
         //System.out.println("Frames:" + frames);
         setTitle("Frames: "+frames);
-        if (frames < Game.instance.fps) {
-            Game.instance.offsetFrames += 10;
-        } else if (frames > Game.instance.fps) {
-            Game.instance.offsetFrames -= 10;
-        }
+        
         frames = 0;
     }
 
