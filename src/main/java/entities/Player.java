@@ -10,6 +10,7 @@ import com.mycompany.gltest.Entity;
 import com.mycompany.gltest.Game;
 import com.mycompany.gltest.Input;
 import com.mycompany.gltest.Physics;
+import com.mycompany.gltest.Timer;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -20,9 +21,9 @@ public class Player extends Entity {
 
     private Physics physics;
     private float vision = 0.95f; // 0-1
-    private float speed = 0.01f;
-    private float movementSpeed = speed * 0.5f;
-    private float jumpSpeed = speed * 0.7f;
+    private float speed = 0.1f;
+    private float movementSpeed = speed;
+    private float jumpSpeed = speed;
     private float jumpHeight = 1.8f;
     private float rotateSpeed = 0.001f;
     private boolean creativeMode = true;
@@ -42,7 +43,7 @@ public class Player extends Entity {
     public void onUpdate() {
         float x = 0, y = 0, z = 0;
         Input input = Game.instance.getInput();
-        float fpsSpeed = (1000/Game.instance.fps) ;
+        
         movementSpeed = movementSpeed;
         jumpSpeed = jumpSpeed;
         if (input.getKey(GLFW.GLFW_KEY_W)) {
@@ -146,9 +147,11 @@ public class Player extends Entity {
 
         cx = input.getCX();
         cy = input.getCY();
-        this.x += x * fpsSpeed;
-        this.y += y;
-        this.z += z * fpsSpeed;
+        float delta = Timer.getDelta();
+        //System.out.printf("%d\n",delta);
+        this.x += x * delta;
+        this.y += y*delta;
+        this.z += z*delta;
 
         //System.out.println(this);
         //System.out.println("Rotx:" +rx*54.5f+"-Roty:"+ry*50);

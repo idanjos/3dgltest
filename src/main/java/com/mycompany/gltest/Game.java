@@ -80,25 +80,22 @@ public class Game extends Component implements Runnable {
         int ticks = 0;
         ChunkRenderer cr = new ChunkRenderer();
         Timer updateTime = new Timer();
+        Timer updatePlayer = new Timer();
         gameclient.sendData("ping".getBytes());
         while (!window.isClosing() && !input.getKey(GLFW.GLFW_KEY_ESCAPE)) {
             window.clear(0.0f, 0.2f, 0.4f);
-            if(ticks <= 60){
+           
                 world.player.onUpdate();
-                ticks++;
-            }else{
+              
+            if (updateTime.getTimeMilli() >= 1000) {
+                updateTime.reset();
                 window.printFrames();
-                ticks = 0;
+                //ticks=0;
             }
-                
+            cr.render(world.chunks, world.player);
+                 window.update();
             
 
-            cr.render(world.chunks, world.player);
-           window.update();
-           Timer.sync(60);
-          
-           
-             
         }
         if (gameserver != null) {
             gameserver.interrupt();
