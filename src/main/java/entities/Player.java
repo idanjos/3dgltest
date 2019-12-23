@@ -21,13 +21,13 @@ public class Player extends Entity {
 
     private Physics physics;
     private float vision = 0.95f; // 0-1
-    private float speed = 0.1f;
-    private float movementSpeed = speed;
-    private float jumpSpeed = speed;
+    private float speed = 0.0005f;
+  
+   
     private float jumpHeight = 1.8f;
     private float rotateSpeed = 0.001f;
     private boolean creativeMode = true;
-    private float gravity = speed * 1f;
+  
     private boolean isGrounded = false;
     private boolean isJumping = false;
     private float jumpCount = 0.0f;
@@ -43,8 +43,10 @@ public class Player extends Entity {
     public void onUpdate() {
         float x = 0, y = 0, z = 0;
         Input input = Game.instance.getInput();
-        
-        movementSpeed = movementSpeed;
+        float delta = Timer.getDelta();
+        float jumpSpeed = speed * delta;
+        float gravity = jumpSpeed;
+        float movementSpeed = speed * delta;
         jumpSpeed = jumpSpeed;
         if (input.getKey(GLFW.GLFW_KEY_W)) {
             z -= Math.cos(ry) * movementSpeed;//cos 1
@@ -147,11 +149,11 @@ public class Player extends Entity {
 
         cx = input.getCX();
         cy = input.getCY();
-        float delta = Timer.getDelta();
+        
         //System.out.printf("%d\n",delta);
-        this.x += x * delta;
-        this.y += y*delta;
-        this.z += z*delta;
+        this.x += x ;
+        this.y += y;
+        this.z += z;
 
         //System.out.println(this);
         //System.out.println("Rotx:" +rx*54.5f+"-Roty:"+ry*50);

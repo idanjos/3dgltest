@@ -34,7 +34,7 @@ public class Timer {
     
     public static float getDelta() {
         long currentTime = getTime();
-        float delta =  (float)(currentTime -  lastFrame)/100;
+        float delta =  (float)(currentTime -  lastFrame);
         System.out.println(delta);
         lastFrame = getTime();
         return delta;
